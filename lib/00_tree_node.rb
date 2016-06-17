@@ -35,13 +35,22 @@ class PolyTreeNode
   end
 
   def dfs(target_value)
+    # debugger
     return self if self.value == target_value
-    return nil if self.children.empty?
-    children.each do |child|
-      dfs(child)
-      return child.value if child.value == target_value
+    self.children.each do |child|
+      result = child.dfs(target_value)
+      return result if result
     end
     return nil
+  end
+
+  def bfs(target_value)
+    queue = [self.first]
+    until queue.empty?
+      current_node = queue.shift
+      current_node == target ? return current_node : queue << self.unshift
+    end
+    nil
   end
 
 end
